@@ -102,11 +102,50 @@
 .invitation__card {
   position: relative;
   container-type: size;
+  /* Mobile: full-bleed portrait — keep this composition locked */
   width: min(100vw, calc(100dvh * var(--card-aspect-w) / var(--card-aspect-h)));
   height: 100dvh;
   margin: 0;
   background: var(--color-paper);
   overflow: hidden;
+}
+
+/*
+  Desktop: stage the invitation as the same phone composition you approved.
+  Wide monitors were using a different aspect, so type/art drifted.
+*/
+@media (min-width: 768px) {
+  .invitation {
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(
+        ellipse 70% 55% at 50% 45%,
+        color-mix(in srgb, var(--color-paper) 100%, #fff 8%) 0%,
+        color-mix(in srgb, var(--color-paper) 92%, #e8dcc8 8%) 100%
+      );
+  }
+
+  .invitation__card {
+    --desktop-card-w: 24.375rem; /* ~390px phone width */
+    --desktop-card-h: 52.75rem; /* ~844px phone height */
+    width: min(
+      var(--desktop-card-w),
+      calc(100vw - 2rem),
+      calc(min(var(--desktop-card-h), 100dvh - 2rem) * 390 / 844)
+    );
+    height: min(
+      var(--desktop-card-h),
+      calc(100dvh - 2rem),
+      calc(
+          min(var(--desktop-card-w), 100vw - 2rem) * 844 / 390
+        )
+      );
+    flex-shrink: 0;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-gold) 22%, transparent),
+      0 18px 48px color-mix(in srgb, var(--color-ink) 10%, transparent);
+  }
 }
 
 .invitation__art {
