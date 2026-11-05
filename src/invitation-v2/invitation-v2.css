@@ -736,6 +736,7 @@
 
 .reach__back-label {
   line-height: 1.2;
+  color: var(--color-ink);
 }
 
 .reach__back:hover,
