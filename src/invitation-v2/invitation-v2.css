@@ -13,8 +13,8 @@
   --text-intro: 0.875rem;
   --text-name: clamp(2.1rem, 11cqw, 2.85rem);
   --text-ampersand: clamp(1rem, 4.2cqw, 1.25rem);
-  --text-meta: 16px;
-  --text-venue-name: 16px;
+  --text-meta: 14px;
+  --text-venue-name: 14px;
   --text-rsvp: 0.875rem;
 
   --tracking-intro: 0.08em;
@@ -74,6 +74,8 @@
 
 .invitation--mr {
   --font-body: var(--font-mr);
+  --text-meta: 16px;
+  --text-venue-name: 16px;
   --tracking-intro: 0;
   --tracking-name: 0;
   --tracking-meta: 0;
