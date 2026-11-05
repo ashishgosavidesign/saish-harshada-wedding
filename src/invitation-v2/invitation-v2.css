@@ -210,7 +210,7 @@
   margin: 0;
   width: 108%;
   height: auto;
-  transform: translate(-50%, 6px);
+  transform: translate(-50%, -6px);
   object-fit: contain;
   object-position: bottom center;
 }
@@ -584,11 +584,11 @@
 @keyframes invite-rise {
   from {
     opacity: 0;
-    transform: translate(-50%, 22px);
+    transform: translate(-50%, 10px);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 6px);
+    transform: translate(-50%, -6px);
   }
 }
 
