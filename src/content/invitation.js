@@ -37,7 +37,7 @@ export const invitationContent = {
     reach: {
       aboutTitle: 'About Sindhudurg',
       about:
-        "Sindhudurg is a beautiful coastal district in Maharashtra, just north of Goa, known for its beaches, sea forts and green landscapes.\n\nWe're happy to welcome you to our hometown and look forward to celebrating with you!",
+        "North of Goa, a Konkan district known for beaches, sea forts, and green landscapes.\n\nWe welcome you to our hometown and look forward to celebrating with you!",
       title: 'How to reach Kudal',
       distanceNote: 'Approx. distance to Kudal bus stand',
       venueMapLabel: 'Wedding venue',
@@ -45,7 +45,7 @@ export const invitationContent = {
       back: 'Back',
       rows: {
         chipi: { name: 'Sindhudurg Airport', label: 'Chipi, Sindhudurg' },
-        mopa: { name: 'Manohar International Airport', label: 'Mopa, Goa' },
+        mopa: { name: 'Manohar Intl. Airport', label: 'Mopa, Goa' },
         kudal: { name: 'Kudal Railway Station', label: 'Kudal, Sindhudurg' },
       },
     },
