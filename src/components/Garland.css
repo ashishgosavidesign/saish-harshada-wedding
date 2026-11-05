@@ -1,0 +1,29 @@
+.garland {
+  position: absolute;
+  top: 2px;
+  width: 28px;
+  height: 110px;
+  transform-origin: top center;
+  animation: garland-swing 5.5s ease-in-out infinite;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
+}
+
+.garland--right {
+  animation-delay: 0.8s;
+}
+
+@keyframes garland-swing {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garland {
+    animation: none;
+  }
+}

@@ -1,0 +1,27 @@
+.viewport {
+  --card-w: 400px;
+  --card-h: 780px;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #e8dcc8 0%, #cfc0a8 100%);
+}
+
+.viewport__scale {
+  width: var(--card-w);
+  height: var(--card-h);
+  transform: scale(min(calc(100vw / var(--card-w)), calc(100dvh / var(--card-h))));
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 420px) {
+  .viewport {
+    --card-w: 360px;
+    --card-h: 702px;
+  }
+}

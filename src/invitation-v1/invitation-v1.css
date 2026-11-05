@@ -1,0 +1,71 @@
+.invitation-v1 {
+  --mist: #e8f0ee;
+  --water-deep: #5ba4b8;
+  --water-light: #9fd4e3;
+  --ivory: #faf7f0;
+  --maroon: #7a1515;
+  --earth: #4a3520;
+  --gold-whisper: #c9a227;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-ui: 'DM Sans', system-ui, sans-serif;
+  --font-marathi: 'Tiro Devanagari Marathi', 'Noto Sans Devanagari', serif;
+
+  min-height: 100%;
+  background: var(--ivory);
+  color: var(--earth);
+}
+
+.invitation-v1__header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 0.85rem 1rem;
+  pointer-events: none;
+}
+
+.invitation-v1__header > * {
+  pointer-events: auto;
+}
+
+.invitation-v1__main {
+  width: 100%;
+}
+
+.invitation-v1__content {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .invitation-v1__content {
+    max-width: 480px;
+  }
+}
+
+.stub-section {
+  min-height: 32vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+  background: var(--ivory);
+}
+
+.stub-section__text {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: rgba(74, 53, 32, 0.35);
+}
+
+.locale-mr.stub-section .stub-section__text {
+  font-family: var(--font-marathi);
+  letter-spacing: 0.02em;
+}

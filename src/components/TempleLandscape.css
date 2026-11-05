@@ -1,0 +1,84 @@
+.landscape {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 175px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.landscape__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.landscape__palm {
+  transform-origin: 312px 95px;
+  animation: leaf-sway 7s ease-in-out infinite;
+}
+
+.landscape__palm--delay {
+  transform-origin: 357px 98px;
+  animation-delay: -3s;
+}
+
+.landscape__ripples {
+  animation: ripple-pulse 4s ease-in-out infinite;
+}
+
+.landscape__ripples--slow {
+  animation-duration: 5.5s;
+  animation-delay: -1.5s;
+}
+
+@keyframes ripple-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.08);
+  }
+}
+
+.landscape__lotus {
+  animation: lotus-float 5s ease-in-out infinite;
+}
+
+.landscape__lotus--1 {
+  animation-delay: 0s;
+}
+
+.landscape__lotus--2 {
+  animation-delay: -1.8s;
+}
+
+.landscape__lotus--3 {
+  animation-delay: -3.2s;
+}
+
+.landscape__lotus--4 {
+  animation-delay: -2.4s;
+}
+
+@keyframes lotus-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landscape__palm,
+  .landscape__ripples,
+  .landscape__lotus {
+    animation: none;
+  }
+}

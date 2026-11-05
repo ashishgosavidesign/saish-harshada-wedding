@@ -1,0 +1,6 @@
+.plain-fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, #dceef2 0%, #e8f0ee 38%, #5ba4b8 62%, #faf7f0 100%);
+}

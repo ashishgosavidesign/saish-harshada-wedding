@@ -1,0 +1,686 @@
+.invitation {
+  --color-paper: #faf4e9;
+  --color-ink: #851b17;
+  --color-gold: #d4af37;
+  --color-rsvp-fill: #851b17;
+  --color-rsvp-text: #ffffff;
+
+  --font-sans: 'Poppins', system-ui, sans-serif;
+  --font-mr: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+  --font-body: var(--font-sans);
+
+  /* Scale taken from the print card: names ~2.9× the intro, meta ~1.1× the intro */
+  --text-intro: 0.875rem;
+  --text-name: clamp(2.1rem, 11cqw, 2.85rem);
+  --text-ampersand: clamp(1rem, 4.2cqw, 1.25rem);
+  --text-meta: 16px;
+  --text-venue-name: 16px;
+  --text-rsvp: 0.875rem;
+
+  --tracking-intro: 0.08em;
+  --tracking-name: -0.01em;
+  --tracking-meta: 0.01em;
+  --tracking-rsvp: 0.14em;
+
+  --leading-intro: 1.5;
+  --leading-name: 1.05;
+  --leading-meta: 1.4;
+
+  --weight-intro: 500;
+  --weight-name: 500;
+  --weight-ampersand: 500;
+  --weight-meta: 500;
+  --weight-venue-name: 600;
+
+  --space-page-y: clamp(2.5rem, 8vh, 5.5rem);
+  --space-page-x: clamp(1.25rem, 5vw, 2.5rem);
+  /* Reference rhythm: air around names, tight date/venue cluster */
+  --space-around-names: 1.75rem;
+  --space-after-message: var(--space-around-names);
+  --space-name-gap: calc(0.12rem + 2px);
+  --space-ampersand-y: 0.02em;
+  --space-after-names: var(--space-around-names);
+  --space-date-gap: 0.1rem;
+  --space-after-date: 0.7rem;
+  --space-venue-gap: 0.18rem;
+  --space-after-venue: 1.25rem;
+  --layout-max-width: none;
+  --card-aspect-w: 683;
+  --card-aspect-h: 1024;
+
+  --rsvp-pad-y: 1rem;
+  --rsvp-pad-x: 2rem;
+  --rsvp-border: 1.5px;
+  --rsvp-radius: 999px;
+
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  width: 100vw;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  text-align: center;
+  font-kerning: normal;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+.invitation--mr {
+  --font-body: var(--font-mr);
+  --tracking-intro: 0;
+  --tracking-name: 0;
+  --tracking-meta: 0;
+  --tracking-rsvp: 0;
+  /* Match English vertical rhythm exactly */
+  --leading-intro: 1.5;
+  --leading-name: 1.05;
+  --leading-meta: 1.4;
+  --space-around-names: 1.75rem;
+  --space-name-gap: calc(0.12rem + 2px);
+  --space-ampersand-y: 0.02em;
+  --space-after-date: 0.7rem;
+  --space-venue-gap: 0.18rem;
+  --space-after-venue: 1.25rem;
+  font-feature-settings: 'kern' 1, 'locl' 1;
+}
+
+.invitation *,
+.invitation *::before,
+.invitation *::after {
+  box-sizing: border-box;
+}
+
+.invitation__card {
+  position: relative;
+  container-type: size;
+  width: min(100vw, calc(100dvh * var(--card-aspect-w) / var(--card-aspect-h)));
+  height: 100dvh;
+  margin: 0;
+  background: var(--color-paper);
+  overflow: hidden;
+}
+
+.invitation__art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.invitation__art-img {
+  display: block;
+  max-width: none;
+  user-select: none;
+}
+
+.invitation__art-piece {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  pointer-events: none;
+}
+
+.invitation__art-piece--lotus-left,
+.invitation__art-piece--lotus-right {
+  top: -0.4%;
+  width: 10%;
+}
+
+.invitation__art-piece--lotus-left {
+  left: 3%;
+}
+
+.invitation__art-piece--lotus-right {
+  right: 3%;
+  left: auto;
+}
+
+.invitation__art-piece--leaf-left,
+.invitation__art-piece--leaf-right {
+  top: calc(24% + 3px);
+  height: 40%;
+}
+
+.invitation__art-piece--leaf-left {
+  left: -17%;
+  width: 50%;
+}
+
+.invitation__art-piece--leaf-right {
+  right: -27%;
+  left: auto;
+  width: 58%;
+}
+
+.invitation__art-img--lotus-left,
+.invitation__art-img--lotus-right {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 0%;
+  object-fit: contain;
+}
+
+.invitation__art-img--lotus-left {
+  object-position: left top;
+}
+
+.invitation__art-img--lotus-right {
+  object-position: right top;
+}
+
+.invitation__art-img--ganpati {
+  position: absolute;
+  top: 2.8%;
+  left: 50%;
+  width: 6.8%;
+  height: auto;
+  z-index: 2;
+  transform: translateX(-50%);
+}
+
+.invitation__art-img--leaf-left,
+.invitation__art-img--leaf-right {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.invitation__art-img--leaf-left {
+  object-position: left center;
+}
+
+.invitation__art-img--leaf-right {
+  object-position: right top;
+}
+
+.invitation__art-img--temple {
+  position: absolute;
+  bottom: -7%;
+  left: 50%;
+  margin: 0;
+  width: 108%;
+  height: auto;
+  transform: translate(-50%, 12px);
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.invitation__canvas {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12.5% 16% 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.lang-toggle {
+  position: absolute;
+  top: 1.6%;
+  right: 3.2%;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.12rem;
+  padding: 0.18rem;
+  border: 1.5px solid var(--color-gold);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-paper) 92%, #ffffff 8%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--color-gold) 35%, transparent);
+}
+
+.lang-toggle__opt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.lang-toggle__opt.is-active {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.lang-toggle__opt:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.lang-toggle__mark {
+  display: block;
+  line-height: 1;
+}
+
+.lang-toggle__mark--en {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.lang-toggle__mark--mr {
+  font-family: var(--font-mr);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  transform: none;
+}
+
+.invitation-message {
+  margin: 0;
+  width: 100%;
+}
+
+.invitation-message__text {
+  margin: 4px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: var(--weight-intro);
+  letter-spacing: var(--tracking-intro);
+  line-height: var(--leading-intro);
+  text-transform: uppercase;
+}
+
+.invitation--mr .invitation-message__text {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: var(--weight-intro);
+  font-size: 16px;
+  line-height: var(--leading-intro);
+}
+
+.invitation--mr .invitation-message__line {
+  letter-spacing: 0;
+}
+
+.invitation--mr .couple-names__ampersand {
+  margin-bottom: 2.9px;
+}
+
+.invitation--mr .couple-names,
+.invitation--mr .couple-names__name,
+.invitation--mr .couple-names__ampersand,
+.invitation--mr .wedding-date,
+.invitation--mr .wedding-date time,
+.invitation--mr .venue,
+.invitation--mr .venue__name,
+.invitation--mr .venue__line {
+  /* Inherit English spacing/sizing; only script/font differs */
+  letter-spacing: 0;
+}
+
+.invitation--mr .venue__name,
+.invitation--mr .venue__line {
+  font-size: var(--text-meta);
+}
+
+.invitation--mr .invitation-message__line--nowrap {
+  white-space: nowrap;
+}
+
+.couple-names {
+  margin: 0;
+  padding-block: var(--space-around-names);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-name-gap);
+  width: 100%;
+}
+
+.couple-names__name {
+  margin: 0;
+  width: 100%;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-name);
+  font-weight: var(--weight-name);
+  font-style: normal;
+  letter-spacing: var(--tracking-name);
+  line-height: var(--leading-name);
+}
+
+.couple-names__ampersand {
+  display: block;
+  margin: 0;
+  padding-block: var(--space-ampersand-y);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-ampersand);
+  font-weight: var(--weight-ampersand);
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.wedding-date {
+  margin: 0 0 var(--space-after-date);
+}
+
+.wedding-date time {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-meta);
+  letter-spacing: var(--tracking-meta);
+  line-height: var(--leading-meta);
+  white-space: nowrap;
+}
+
+.wedding-date__sep {
+  padding-inline: 0.4em;
+}
+
+.venue {
+  margin: 0 0 var(--space-after-venue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-venue-gap);
+  max-width: 22em;
+  font-style: normal;
+}
+
+.venue__name,
+.venue__line {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-meta);
+  line-height: var(--leading-meta);
+}
+
+.venue__name {
+  font-size: var(--text-meta);
+  font-weight: var(--weight-venue-name);
+}
+
+.venue__line {
+  font-weight: var(--weight-meta);
+}
+
+.rsvp-button {
+  appearance: none;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 16px 32px;
+  border: var(--rsvp-border) solid var(--color-gold);
+  border-radius: var(--rsvp-radius);
+  background: var(--color-rsvp-fill);
+  color: var(--color-rsvp-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: var(--tracking-rsvp);
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.invitation--mr .rsvp-button {
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.rsvp-button:hover {
+  background: color-mix(in srgb, var(--color-rsvp-fill) 88%, #000 12%);
+}
+
+.rsvp-button:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .invitation {
+    --text-name: clamp(2rem, 11vw, 2.4rem);
+    --tracking-intro: 0.08em;
+  }
+}
+
+/* One soft entrance: lotuses lead, names land, then quiet life */
+@keyframes invite-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes invite-hang {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes invite-wind-left {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+  28% {
+    transform: rotate(4.6deg) translateX(4.5px);
+  }
+  58% {
+    transform: rotate(-3.1deg) translateX(-3px);
+  }
+  78% {
+    transform: rotate(2deg) translateX(1.5px);
+  }
+}
+
+@keyframes invite-wind-right {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+  32% {
+    transform: rotate(-4.4deg) translateX(-4.5px);
+  }
+  60% {
+    transform: rotate(2.8deg) translateX(3px);
+  }
+  82% {
+    transform: rotate(-1.8deg) translateX(-1.5px);
+  }
+}
+
+@keyframes invite-bless {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes invite-drift-left {
+  from {
+    opacity: 0;
+    transform: translate(-14px, 6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes invite-drift-right {
+  from {
+    opacity: 0;
+    transform: translate(14px, 6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes invite-wind-leaf-left {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  40% {
+    transform: translate(8.5px, -4px) rotate(1.95deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes invite-wind-leaf-right {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  48% {
+    transform: translate(-8.5px, -4px) rotate(-1.95deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes invite-rise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 28px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 12px);
+  }
+}
+
+@keyframes invite-settle {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes invite-name-land {
+  from {
+    opacity: 0.84;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.invitation__card {
+  animation: invite-fade 1150ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Entrance on wrapper, wind on image — transforms compose, no handoff snap */
+.invitation__art-piece--lotus-left,
+.invitation__art-piece--lotus-right {
+  animation: invite-hang 1750ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+}
+
+.invitation__art-img--lotus-left {
+  animation: invite-wind-left 5.6s ease-in-out 2.45s infinite;
+}
+
+.invitation__art-img--lotus-right {
+  animation: invite-wind-right 6.3s ease-in-out 2.6s infinite;
+}
+
+.invitation__art-img--ganpati {
+  animation: invite-bless 1250ms cubic-bezier(0.22, 1, 0.36, 1) 340ms both;
+}
+
+.invitation__art-piece--leaf-left {
+  animation: invite-drift-left 1500ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
+}
+
+.invitation__art-piece--leaf-right {
+  animation: invite-drift-right 1500ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
+}
+
+.invitation__art-img--leaf-left {
+  animation: invite-wind-leaf-left 6.4s ease-in-out 2.75s infinite;
+}
+
+.invitation__art-img--leaf-right {
+  animation: invite-wind-leaf-right 7.1s ease-in-out 2.95s infinite;
+}
+
+.invitation__art-img--temple {
+  animation: invite-rise 1600ms cubic-bezier(0.22, 1, 0.36, 1) 520ms both;
+}
+
+.invitation__canvas {
+  animation: invite-settle 1450ms cubic-bezier(0.22, 1, 0.36, 1) 450ms both;
+}
+
+.couple-names__name {
+  animation: invite-name-land 480ms ease-out 1950ms both;
+}
+
+.lang-toggle {
+  animation: invite-fade 920ms cubic-bezier(0.22, 1, 0.36, 1) 650ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation__card,
+  .invitation__art-piece--lotus-left,
+  .invitation__art-piece--lotus-right,
+  .invitation__art-piece--leaf-left,
+  .invitation__art-piece--leaf-right,
+  .invitation__art-img--lotus-left,
+  .invitation__art-img--lotus-right,
+  .invitation__art-img--ganpati,
+  .invitation__art-img--leaf-left,
+  .invitation__art-img--leaf-right,
+  .invitation__art-img--temple,
+  .invitation__canvas,
+  .couple-names__name,
+  .lang-toggle {
+    animation: none;
+  }
+}

@@ -1,0 +1,145 @@
+.lake-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: var(--mist);
+}
+
+.lake-hero__loading {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #dceef2 0%, #5ba4b8 55%, #faf7f0 100%);
+}
+
+.lake-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.lake-canvas__gl {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  touch-action: pan-y;
+}
+
+.lake-hero__copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 1.5rem 5.5rem;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 247, 240, 0) 0%,
+    rgba(250, 247, 240, 0.55) 35%,
+    rgba(250, 247, 240, 0.92) 100%
+  );
+}
+
+.lake-hero__tagline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(74, 53, 32, 0.55);
+}
+
+.locale-mr .lake-hero__tagline {
+  font-family: var(--font-marathi);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+}
+
+.lake-hero__couple {
+  margin: 0.65rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  font-weight: 500;
+  color: var(--maroon);
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  text-shadow: 0 1px 24px rgba(250, 247, 240, 0.85);
+}
+
+.locale-mr .lake-hero__couple {
+  font-family: var(--font-marathi);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.lake-hero__scroll-hint {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  color: rgba(74, 53, 32, 0.45);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.lake-hero__scroll-hint--hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  pointer-events: none;
+}
+
+.lake-hero__scroll-text {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.locale-mr .lake-hero__scroll-text {
+  font-family: var(--font-marathi);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.75rem;
+}
+
+.lake-hero__chevron {
+  width: 1.25rem;
+  height: 1.25rem;
+  animation: chevron-bob 2.2s ease-in-out infinite;
+}
+
+@keyframes chevron-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lake-hero__chevron {
+    animation: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .lake-hero__copy {
+    padding-bottom: 6rem;
+  }
+}

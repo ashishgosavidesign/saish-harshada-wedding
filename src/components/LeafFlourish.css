@@ -1,0 +1,9 @@
+.leaf-flourish {
+  width: 28px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.leaf-flourish--left {
+  transform: scaleX(-1);
+}
