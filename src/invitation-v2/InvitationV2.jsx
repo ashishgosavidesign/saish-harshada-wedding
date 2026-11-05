@@ -17,27 +17,31 @@ function InvitationV2Inner() {
   if (page === 'reach') {
     return (
       <div className={`invitation-site invitation-site--page invitation-site--${locale}`}>
-        <HowToReach onBack={() => setPage('invite')} />
+        <div className="invitation-scaler">
+          <HowToReach onBack={() => setPage('invite')} />
+        </div>
       </div>
     )
   }
 
   return (
     <div className={`invitation-site invitation-site--${locale}`}>
-      <article className={`invitation invitation--${locale}`}>
-        <div className="invitation__card">
-          <LanguageToggle />
-          <InvitationArtwork />
+      <div className="invitation-scaler">
+        <article className={`invitation invitation--${locale}`}>
+          <div className="invitation__card">
+            <LanguageToggle />
+            <InvitationArtwork />
 
-          <div className="invitation__canvas">
-            <InvitationMessage />
-            <CoupleNames />
-            <WeddingDate />
-            <Venue />
-            <InvitationActions onOpenReach={() => setPage('reach')} />
+            <div className="invitation__canvas">
+              <InvitationMessage />
+              <CoupleNames />
+              <WeddingDate />
+              <Venue />
+              <InvitationActions onOpenReach={() => setPage('reach')} />
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </div>
   )
 }
