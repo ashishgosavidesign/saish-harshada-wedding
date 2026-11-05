@@ -80,16 +80,16 @@
   --tracking-name: 0;
   --tracking-meta: 0;
   --tracking-rsvp: 0;
-  /* Match English vertical rhythm exactly */
+  /* Slightly tighter than English — Devanagari runs taller */
   --leading-intro: 1.5;
   --leading-name: 1.05;
   --leading-meta: 1.4;
-  --space-around-names: 1.75rem;
+  --space-around-names: 1.4rem;
   --space-name-gap: calc(0.12rem + 2px);
   --space-ampersand-y: 0.02em;
-  --space-after-date: 0.7rem;
+  --space-after-date: 0.55rem;
   --space-venue-gap: 0.18rem;
-  --space-after-venue: 1.25rem;
+  --space-after-venue: 0.95rem;
   font-feature-settings: 'kern' 1, 'locl' 1;
 }
 
@@ -133,7 +133,7 @@
 .invitation__art-piece--lotus-left,
 .invitation__art-piece--lotus-right {
   top: -0.4%;
-  width: 10%;
+  width: 12.5%;
 }
 
 .invitation__art-piece--lotus-left {
@@ -145,21 +145,19 @@
   left: auto;
 }
 
-.invitation__art-piece--leaf-left,
-.invitation__art-piece--leaf-right {
+.invitation__art-piece--leaf-left {
   top: calc(24% + 3px);
+  left: -26%;
+  width: 50%;
   height: 40%;
 }
 
-.invitation__art-piece--leaf-left {
-  left: -17%;
-  width: 50%;
-}
-
 .invitation__art-piece--leaf-right {
-  right: -27%;
+  top: calc(24% + 26px);
+  right: -31%;
   left: auto;
   width: 58%;
+  height: 40%;
 }
 
 .invitation__art-img--lotus-left,
@@ -183,7 +181,7 @@
   position: absolute;
   top: 2.8%;
   left: 50%;
-  width: 6.8%;
+  width: calc(6.8% + 2px);
   height: auto;
   z-index: 2;
   transform: translateX(-50%);
@@ -225,7 +223,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12.5% 16% 0;
+  padding: 14.2% 16% 0;
   overflow: hidden;
   background: transparent;
 }
@@ -297,17 +295,18 @@
 }
 
 .invitation-message__text {
-  margin: 4px 0 0;
+  margin: 10px 0 0;
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: var(--weight-intro);
-  letter-spacing: var(--tracking-intro);
+  letter-spacing: 0.9px;
   line-height: var(--leading-intro);
   text-transform: uppercase;
 }
 
 .invitation--mr .invitation-message__text {
+  margin-top: 8px;
   text-transform: none;
   letter-spacing: 0;
   font-weight: var(--weight-intro);
@@ -419,7 +418,7 @@
 }
 
 .venue__name {
-  font-size: var(--text-meta);
+  font-size: var(--text-venue-name);
   font-weight: var(--weight-venue-name);
 }
 
@@ -564,7 +563,7 @@
     transform: translate(0, 0) rotate(0deg);
   }
   40% {
-    transform: translate(8.5px, -4px) rotate(1.95deg);
+    transform: translate(10px, -4.5px) rotate(2.25deg);
   }
   100% {
     transform: translate(0, 0) rotate(0deg);
@@ -576,7 +575,7 @@
     transform: translate(0, 0) rotate(0deg);
   }
   48% {
-    transform: translate(-8.5px, -4px) rotate(-1.95deg);
+    transform: translate(-10px, -4.5px) rotate(-2.25deg);
   }
   100% {
     transform: translate(0, 0) rotate(0deg);

@@ -28,7 +28,7 @@ export const invitationContent = {
       dateTime: '2026-12-14T09:50',
     },
     venue: {
-      name: 'Lakshminarayan Temple, Walaval',
+      name: 'Lakshminarayan Temple',
       line2: 'Tal - Kudal, Dist - Sindhudurg',
       line3: 'Maharashtra – 416520',
     },
