@@ -37,7 +37,7 @@ export const invitationContent = {
     reach: {
       aboutTitle: 'About Sindhudurg',
       about:
-        "North of Goa, a Konkan district known for beaches, sea forts, and green landscapes.\n\nWe welcome you to our hometown and look forward to celebrating with you!",
+        "Located north of Goa, this coastal paradise is known for its beautiful beaches, historic sea forts, and lush green landscapes.\n\nWe welcome you to our hometown and look forward to celebrating with you!",
       title: 'How to reach Kudal',
       distanceNote: 'Approx. distance to Kudal bus stand',
       venueMapLabel: 'Wedding venue',
@@ -88,7 +88,7 @@ export const invitationContent = {
     reach: {
       aboutTitle: 'सिंधुदुर्ग विषयी',
       about:
-        'गोव्याच्या उत्तरेला वसलेला महाराष्ट्रातील सुंदर कोकण जिल्हा. समुद्रकिनारे, समुद्रकिल्ले आणि हिरवळ यासाठी प्रसिद्ध.\n\nआमच्या गावी आपले स्वागत आहे, आपल्यासोबत हा सण साजरा करण्याची आम्हाला आतुरता आहे!',
+        'गोव्याच्या उत्तरेस वसलेला हा सुंदर किनारपट्टीचा प्रदेश स्वच्छ समुद्रकिनारे, ऐतिहासिक सागरी किल्ले आणि हिरव्यागार निसर्गासाठी ओळखला जातो.\n\nआमच्या गावी आपले स्वागत आहे, आपल्यासोबत हा सण साजरा करण्याची आम्हाला आतुरता आहे!',
       title: 'कुडाळ पर्यंत कसे पोहोचावे',
       distanceNote: 'कुडाळ बस स्थानकापर्यंतचे अंदाजे अंतर',
       venueMapLabel: 'शुभविवाह स्थळ',
