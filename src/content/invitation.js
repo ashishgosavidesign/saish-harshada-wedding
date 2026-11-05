@@ -33,6 +33,22 @@ export const invitationContent = {
       line3: 'Maharashtra – 416520',
     },
     rsvp: 'RSVP',
+    howToReach: 'How to reach',
+    reach: {
+      aboutTitle: 'About Sindhudurg',
+      about:
+        "Sindhudurg is a beautiful coastal district in Maharashtra, just north of Goa, known for its beaches, sea forts and green landscapes.\n\nWe're happy to welcome you to our hometown and look forward to celebrating with you!",
+      title: 'How to reach Kudal',
+      distanceNote: 'Approx. road distance to Kudal bus stand',
+      venueMapLabel: 'Wedding venue',
+      rowDirectionsLabel: 'Open directions to Kudal bus stand',
+      back: 'Back',
+      rows: {
+        chipi: { name: 'Sindhudurg Airport', label: 'Chipi, Sindhudurg' },
+        mopa: { name: 'Manohar International Airport', label: 'Mopa, Goa' },
+        kudal: { name: 'Kudal Railway Station', label: 'Kudal, Sindhudurg' },
+      },
+    },
   },
   mr: {
     hero: {
@@ -68,5 +84,21 @@ export const invitationContent = {
       line3: 'महाराष्ट्र – ४१६५२०',
     },
     rsvp: 'प्रतिसाद',
+    howToReach: 'कसे पोहोचावे',
+    reach: {
+      aboutTitle: 'सिंधुदुर्ग विषयी',
+      about:
+        'गोव्याच्या उत्तरेला वसलेला महाराष्ट्रातील सुंदर कोकण जिल्हा. समुद्रकिनारे, समुद्रकिल्ले आणि हिरवळ यासाठी प्रसिद्ध.\n\nआमच्या गावी आपले स्वागत आहे, आपल्यासोबत हा सण साजरा करण्याची आम्हाला आतुरता आहे!',
+      title: 'कुडाळ पर्यंत कसे पोहोचावे',
+      distanceNote: 'कुडाळ बस स्थानकापर्यंतचे अंदाजे अंतर',
+      venueMapLabel: 'शुभविवाह स्थळ',
+      rowDirectionsLabel: 'कुडाळ बस स्थानकाकडे दिशा नकाशावर',
+      back: 'मागे',
+      rows: {
+        chipi: { name: 'सिंधुदुर्ग विमानतळ', label: 'चिपि, सिंधुदुर्ग' },
+        mopa: { name: 'मनोहर आंतरराष्ट्रीय विमानतळ', label: 'मोपा, गोवा' },
+        kudal: { name: 'कुडाळ रेल्वे स्थानक', label: 'कुडाळ, सिंधुदुर्ग' },
+      },
+    },
   },
 }
