@@ -153,7 +153,7 @@
 }
 
 .invitation__art-piece--leaf-right {
-  top: calc(24% + 26px);
+  top: calc(24% + 24px);
   right: -31%;
   left: auto;
   width: 58%;
@@ -403,7 +403,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-venue-gap);
-  max-width: 22em;
+  max-width: min(100%, 28em);
   font-style: normal;
 }
 
@@ -420,6 +420,7 @@
 .venue__name {
   font-size: var(--text-venue-name);
   font-weight: var(--weight-venue-name);
+  white-space: nowrap;
 }
 
 .venue__line {
