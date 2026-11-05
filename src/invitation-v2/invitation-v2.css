@@ -632,7 +632,7 @@
 
 /* English reach: same compact rhythm as Marathi (defaults are looser → extra scroll) */
 .invitation-site--en .reach__inner {
-  padding: 1.1rem 0 0.25rem;
+  padding: 1.1rem 0 0.75rem;
 }
 
 .invitation-site--en .reach__back {
@@ -671,6 +671,13 @@
 
 .invitation-site--en .reach__venue-action {
   margin-top: 0.6rem;
+  padding-bottom: 0.35rem;
+  position: relative;
+  z-index: 1;
+}
+
+.invitation-site--en .reach__coast {
+  margin-top: 0.12rem;
 }
 
 .invitation-site--en .reach__map.invite-btn {
