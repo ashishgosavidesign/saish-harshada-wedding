@@ -6,10 +6,14 @@
   --font-mr: 'Noto Sans Devanagari', 'Poppins', sans-serif;
   --font-body: var(--font-sans);
   width: 100%;
+  max-width: 100%;
   height: 100dvh;
+  height: 100svh;
   overflow: hidden;
   background: var(--color-paper);
   color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .invitation-site--page {
@@ -83,8 +87,10 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: 100dvh;
+  height: 100svh;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -127,36 +133,40 @@
   position: relative;
   container-type: size;
   /* Mobile: full-bleed portrait — keep this composition locked */
-  width: min(100vw, calc(100dvh * var(--card-aspect-w) / var(--card-aspect-h)));
-  height: 100dvh;
-  margin: 0;
+  width: min(100%, calc(100dvh * var(--card-aspect-w) / var(--card-aspect-h)));
+  height: 100%;
+  max-height: 100dvh;
+  max-height: 100svh;
+  margin: 0 auto;
   background: var(--color-paper);
   overflow: hidden;
 }
 
+/* Pass-through on phones — desktop rules below size this wrapper */
 .invitation-scaler {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-}
-
-.invitation-site--page .invitation-scaler {
-  height: auto;
+  display: contents;
 }
 
 /*
-  Wide viewports: one shared column width + full viewport height (no transform scale).
-  Mobile (<768px) unchanged — full-bleed card below this block.
+  Desktop / large tablets: same phone aspect ratio, wider max width.
+  Aspect lock keeps temple/text from overlapping (broken when width≠height ratio).
+  Phones & small tablets stay on mobile rules above.
 */
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .invitation-site {
-    --site-column-w: min(40rem, calc(100vw - 2rem));
-    --site-column-h: calc(100dvh - 2rem);
+    --site-column-w: min(
+      40rem,
+      calc(100vw - 2rem),
+      calc((100dvh - 2rem) * var(--card-aspect-w, 683) / var(--card-aspect-h, 1024))
+    );
+    --site-column-h: min(
+      calc(100dvh - 2rem),
+      calc(var(--site-column-w) * var(--card-aspect-h, 1024) / var(--card-aspect-w, 683))
+    );
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100dvh;
     background:
       radial-gradient(
         ellipse 70% 55% at 50% 45%,
@@ -173,18 +183,18 @@
   }
 
   .invitation-scaler {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: var(--site-column-w);
     height: var(--site-column-h);
     flex-shrink: 0;
-    transform: none;
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--color-gold) 22%, transparent),
       0 18px 48px color-mix(in srgb, var(--color-ink) 10%, transparent);
   }
 
   .invitation-site--page .invitation-scaler {
-    display: flex;
-    flex-direction: column;
     height: auto;
     min-height: var(--site-column-h);
   }
@@ -198,6 +208,8 @@
   .invitation__card {
     width: 100%;
     height: 100%;
+    max-height: none;
+    margin: 0;
   }
 
   .invitation__art-img--temple {
