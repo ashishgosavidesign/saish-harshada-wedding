@@ -39,7 +39,7 @@ export const invitationContent = {
       about:
         "Sindhudurg is a beautiful coastal district in Maharashtra, just north of Goa, known for its beaches, sea forts and green landscapes.\n\nWe're happy to welcome you to our hometown and look forward to celebrating with you!",
       title: 'How to reach Kudal',
-      distanceNote: 'Approx. road distance to Kudal bus stand',
+      distanceNote: 'Approx. distance to Kudal bus stand',
       venueMapLabel: 'Wedding venue',
       rowDirectionsLabel: 'Open directions to Kudal bus stand',
       back: 'Back',
