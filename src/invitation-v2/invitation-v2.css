@@ -533,7 +533,7 @@
 }
 
 .invitation--en .couple-names__name {
-  font-size: clamp(calc(2.1rem + 1px), calc(11cqw + 1px), calc(2.85rem + 1px));
+  font-size: clamp(calc(2.1rem + 2px), calc(11cqw + 2px), calc(2.85rem + 2px));
 }
 
 .wedding-date {
