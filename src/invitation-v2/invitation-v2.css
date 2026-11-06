@@ -154,13 +154,14 @@
 */
 @media (min-width: 900px) {
   .invitation-site {
+    /* Wider/taller on large screens — still locked to card aspect */
     --site-column-w: min(
-      40rem,
-      calc(100vw - 2rem),
-      calc((100dvh - 2rem) * var(--card-aspect-w, 683) / var(--card-aspect-h, 1024))
+      46rem,
+      calc(100vw - 1.25rem),
+      calc((100dvh - 1.25rem) * var(--card-aspect-w, 683) / var(--card-aspect-h, 1024))
     );
     --site-column-h: min(
-      calc(100dvh - 2rem),
+      calc(100dvh - 1.25rem),
       calc(var(--site-column-w) * var(--card-aspect-h, 1024) / var(--card-aspect-w, 683))
     );
     display: flex;
@@ -179,7 +180,7 @@
     align-items: center;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 1rem 0;
+    padding: 0.75rem 0;
   }
 
   .invitation-scaler {
@@ -189,9 +190,7 @@
     width: var(--site-column-w);
     height: var(--site-column-h);
     flex-shrink: 0;
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--color-gold) 22%, transparent),
-      0 18px 48px color-mix(in srgb, var(--color-ink) 10%, transparent);
+    box-shadow: none;
   }
 
   .invitation-site--page .invitation-scaler {
@@ -649,17 +648,17 @@
 }
 
 .reach__map.invite-btn {
-  flex: 0 0 auto;
-  width: auto;
+  flex: 1 1 auto;
+  width: 100%;
   max-width: 100%;
-  padding: 0.7rem 6.675rem;
+  padding: 0.7rem 1.15rem;
   min-height: 2.45rem;
 }
 
 .invitation-site--mr .reach__map.invite-btn {
   letter-spacing: 0;
   font-size: 0.84rem;
-  padding: 0.7rem 6.675rem;
+  padding: 0.7rem 1rem;
 }
 
 .invite-actions .invite-btn::before,
@@ -1121,6 +1120,7 @@
 .reach__venue-action {
   display: flex;
   justify-content: center;
+  width: 100%;
   margin-top: 1rem;
 }
 
