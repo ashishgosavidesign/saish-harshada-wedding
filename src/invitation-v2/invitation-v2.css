@@ -1155,7 +1155,7 @@
   .reach__title,
   .reach__list > li,
   .reach__venue-action {
-    animation: invite-settle 860ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: invite-settle 1050ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .reach-row {
@@ -1163,35 +1163,35 @@
   }
 
   .reach__about-title {
-    animation-delay: 60ms;
+    animation-delay: 80ms;
   }
 
   .reach__about {
-    animation-delay: 100ms;
+    animation-delay: 130ms;
   }
 
   .reach__title {
-    animation-delay: 140ms;
+    animation-delay: 180ms;
   }
 
   .reach__list > li:nth-child(1) {
-    animation-delay: 170ms;
+    animation-delay: 220ms;
   }
 
   .reach__list > li:nth-child(2) {
-    animation-delay: 230ms;
-  }
-
-  .reach__list > li:nth-child(3) {
     animation-delay: 290ms;
   }
 
-  .reach__venue-action {
+  .reach__list > li:nth-child(3) {
     animation-delay: 360ms;
   }
 
+  .reach__venue-action {
+    animation-delay: 440ms;
+  }
+
   .reach__coast {
-    animation: invite-fade 900ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
+    animation: invite-fade 1100ms cubic-bezier(0.22, 1, 0.36, 1) 520ms both;
   }
 }
 
@@ -1344,57 +1344,59 @@
 }
 
 .invitation__card {
-  animation: invite-fade 1150ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: invite-fade 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Entrance on wrapper, wind on image — transforms compose, no handoff snap */
 .invitation__art-piece--lotus-left,
 .invitation__art-piece--lotus-right {
-  animation: invite-hang 1750ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+  animation: invite-hang 2150ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
 }
 
 .invitation__art-img--lotus-left {
-  animation: invite-wind-left 4.8s ease-in-out 2.45s infinite;
+  /* Starts the instant hang ends (180ms + 2150ms) — no idle gap */
+  animation: invite-wind-left 4.8s ease-in-out 2330ms infinite;
 }
 
 .invitation__art-img--lotus-right {
-  animation: invite-wind-right 5.4s ease-in-out 2.6s infinite;
+  animation: invite-wind-right 5.4s ease-in-out 2330ms infinite;
 }
 
 .invitation__art-img--ganpati {
-  animation: invite-bless 1250ms cubic-bezier(0.22, 1, 0.36, 1) 340ms both;
+  animation: invite-bless 1550ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
 }
 
 .invitation__art-piece--leaf-left {
-  animation: invite-drift-left 1500ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
+  animation: invite-drift-left 1850ms cubic-bezier(0.22, 1, 0.36, 1) 520ms both;
 }
 
 .invitation__art-piece--leaf-right {
-  animation: invite-drift-right 1500ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
+  animation: invite-drift-right 1850ms cubic-bezier(0.22, 1, 0.36, 1) 520ms both;
 }
 
 .invitation__art-img--leaf-left {
-  animation: invite-wind-leaf-left 5.5s ease-in-out 2.75s infinite;
+  /* Starts the instant drift ends (520ms + 1850ms) — no idle gap */
+  animation: invite-wind-leaf-left 5.5s ease-in-out 2370ms infinite;
 }
 
 .invitation__art-img--leaf-right {
-  animation: invite-wind-leaf-right 6.1s ease-in-out 2.95s infinite;
+  animation: invite-wind-leaf-right 6.1s ease-in-out 2370ms infinite;
 }
 
 .invitation__art-img--temple {
-  animation: invite-rise 1600ms cubic-bezier(0.22, 1, 0.36, 1) 520ms both;
+  animation: invite-rise 1950ms cubic-bezier(0.22, 1, 0.36, 1) 640ms both;
 }
 
 .invitation__canvas {
-  animation: invite-settle 1450ms cubic-bezier(0.22, 1, 0.36, 1) 450ms both;
+  animation: invite-settle 1750ms cubic-bezier(0.22, 1, 0.36, 1) 560ms both;
 }
 
 .couple-names__name {
-  animation: invite-name-land 480ms ease-out 1950ms both;
+  animation: invite-name-land 600ms ease-out 2400ms both;
 }
 
 .lang-toggle {
-  animation: invite-fade 920ms cubic-bezier(0.22, 1, 0.36, 1) 650ms both;
+  animation: invite-fade 1120ms cubic-bezier(0.22, 1, 0.36, 1) 800ms both;
 }
 
 @media (prefers-reduced-motion: reduce) {
