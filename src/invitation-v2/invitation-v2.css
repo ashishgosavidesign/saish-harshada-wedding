@@ -35,6 +35,7 @@
 
   --font-sans: 'Poppins', system-ui, sans-serif;
   --font-mr: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+  --font-couple-en: 'David Libre', Georgia, 'Times New Roman', serif;
   --font-body: var(--font-sans);
 
   /* Scale taken from the print card: names ~2.9× the intro, meta ~1.1× the intro */
@@ -438,11 +439,11 @@
   margin: 10px 0 0;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: var(--text-meta);
   font-weight: var(--weight-intro);
-  letter-spacing: 0.9px;
+  letter-spacing: var(--tracking-meta);
   line-height: var(--leading-intro);
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .invitation--mr .invitation-message__text {
@@ -516,6 +517,23 @@
   font-style: normal;
   letter-spacing: 0;
   line-height: 1;
+}
+
+.invitation--en .couple-names {
+  padding-block: 27px;
+}
+
+.invitation--mr .couple-names {
+  padding-block: 23.8px;
+}
+
+.invitation--en .couple-names__name,
+.invitation--en .couple-names__ampersand {
+  font-family: var(--font-couple-en);
+}
+
+.invitation--en .couple-names__name {
+  font-size: clamp(calc(2.1rem + 1px), calc(11cqw + 1px), calc(2.85rem + 1px));
 }
 
 .wedding-date {
