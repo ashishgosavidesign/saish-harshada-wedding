@@ -521,6 +521,7 @@
 
 .invitation--en .couple-names {
   padding-block: 27px;
+  gap: calc(var(--space-name-gap) - 0.9px - 1.2px - 0.5px);
 }
 
 .invitation--mr .couple-names {
