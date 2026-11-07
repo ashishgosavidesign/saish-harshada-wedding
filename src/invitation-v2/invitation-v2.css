@@ -520,7 +520,7 @@
 }
 
 .invitation--en .couple-names {
-  padding-block: 25px;
+  padding-block: 24px;
   gap: calc(var(--space-name-gap) - 0.9px - 1.2px - 0.5px);
 }
 
