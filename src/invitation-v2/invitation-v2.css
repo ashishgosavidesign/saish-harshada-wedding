@@ -521,7 +521,7 @@
 
 .invitation--en .couple-names {
   padding: 21.2px 0;
-  gap: calc(var(--space-name-gap) - 0.9px - 1.2px - 0.5px);
+  gap: calc(var(--space-name-gap) - 0.9px - 1.2px - 0.5px - 2px - 1.5px);
 }
 
 .invitation--mr .couple-names {
@@ -537,15 +537,25 @@
 }
 
 .invitation--en .couple-names__name {
-  font-size: clamp(calc(2.1rem + 3.5px + 1.2px), calc(11cqw + 3.5px + 1.2px), calc(2.85rem + 3.5px + 1.2px));
+  font-size: clamp(
+    calc(2.1rem + 3.5px + 1.2px + 1px),
+    calc(11cqw + 3.5px + 1.2px + 1px),
+    calc(2.85rem + 3.5px + 1.2px + 1px)
+  );
 }
 
 .invitation--en .couple-names__ampersand {
+  padding-block: 0;
   font-size: clamp(
     calc(0.62 * (2.1rem + 3.5px)),
     calc(0.62 * (11cqw + 3.5px)),
     calc(0.62 * (2.85rem + 3.5px))
   );
+}
+
+/* Optical balance: Caveat glyph metrics — keeps both gaps matching after tighten */
+.invitation--en .couple-names__name:last-child {
+  margin-top: 2.5px;
 }
 
 .wedding-date {
