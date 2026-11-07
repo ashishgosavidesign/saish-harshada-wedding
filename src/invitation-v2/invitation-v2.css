@@ -520,7 +520,7 @@
 }
 
 .invitation--en .couple-names {
-  padding-block: 24px;
+  padding-block: 25px;
   gap: calc(var(--space-name-gap) - 0.9px - 1.2px - 0.5px);
 }
 
@@ -537,7 +537,7 @@
 }
 
 .invitation--en .couple-names__name {
-  font-size: clamp(calc(2.1rem + 3.5px), calc(11cqw + 3.5px), calc(2.85rem + 3.5px));
+  font-size: clamp(calc(2.1rem + 3.5px + 1.2px), calc(11cqw + 3.5px + 1.2px), calc(2.85rem + 3.5px + 1.2px));
 }
 
 .invitation--en .couple-names__ampersand {
