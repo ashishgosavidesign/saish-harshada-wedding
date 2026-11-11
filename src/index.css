@@ -18,17 +18,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Keep in DOM for iOS/Android — clipping/zero-size can block playback on WebKit */
 .bg-music {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
   pointer-events: none;
+  border: 0;
 }
 
 body {
