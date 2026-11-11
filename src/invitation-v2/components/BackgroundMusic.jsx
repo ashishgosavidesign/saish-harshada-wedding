@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { initBackgroundMusic } from './bgMusicController'
 
 /**
- * Mounts the shared background-music controller.
- * Actual <audio> lives outside React so iOS/Android unlock survives remounts.
+ * Starts the shared music controller (desktop autoplay / mobile muted prime).
+ * Mobile unmute happens via InviteOpenGate on first tap.
  */
 function BackgroundMusic() {
   useEffect(() => initBackgroundMusic(), [])

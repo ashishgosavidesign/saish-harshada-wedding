@@ -1446,4 +1446,91 @@
     border-color: var(--color-gold);
     background: linear-gradient(165deg, #fffef9 0%, #faf4e9 100%);
   }
+
+  .invite-open-gate,
+  .invite-open-gate__names,
+  .invite-open-gate__cta {
+    animation: none;
+  }
+}
+
+/* Mobile open gate — first tap starts music (browser autoplay policy) */
+.invite-open-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 2rem 1.5rem;
+  border: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 42%, #fff8ee 0%, transparent 70%),
+    var(--color-paper, #faf4e9);
+  color: var(--color-ink, #851b17);
+  font-family: var(--font-sans, 'Poppins', system-ui, sans-serif);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: invite-fade 500ms ease both;
+}
+
+.invite-open-gate__names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  animation: invite-name-land 700ms ease-out 120ms both;
+}
+
+.invite-open-gate__name {
+  font-family: 'Caveat', 'Segoe Print', cursive;
+  font-size: clamp(2.6rem, 12vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-ink, #851b17);
+}
+
+.invite-open-gate--mr .invite-open-gate__name,
+.invite-open-gate--mr .invite-open-gate__amp {
+  font-family: var(--font-mr, 'Noto Sans Devanagari', sans-serif);
+  font-weight: 500;
+}
+
+.invite-open-gate--mr .invite-open-gate__name {
+  font-size: clamp(2rem, 9vw, 2.6rem);
+}
+
+.invite-open-gate__amp {
+  font-family: 'Caveat', 'Segoe Print', cursive;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-ink, #851b17);
+}
+
+.invite-open-gate__cta {
+  margin-top: 0.75rem;
+  padding: 0.85rem 1.75rem;
+  border: 1.5px solid var(--color-gold, #d4af37);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-paper, #faf4e9) 88%, #fff 12%);
+  color: var(--color-ink, #851b17);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  animation: invite-fade 600ms ease 280ms both;
+}
+
+.invite-open-gate__hint {
+  color: color-mix(in srgb, var(--color-ink, #851b17) 55%, var(--color-paper, #faf4e9));
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.invite-open-gate:focus-visible {
+  outline: 2px solid var(--color-gold, #d4af37);
+  outline-offset: -8px;
 }

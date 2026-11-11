@@ -2,7 +2,7 @@ const BG_SRC_DESKTOP = '/audio/diwali-bg.mp3'
 const BG_SRC_MOBILE = '/audio/diwali-bg-mobile.mp3'
 const VOLUME = 0.45
 
-function isMobileDevice() {
+export function isMobileDevice() {
   if (typeof window === 'undefined') return false
   if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) return true
   return window.matchMedia('(pointer: coarse)').matches && navigator.maxTouchPoints > 0
@@ -22,6 +22,28 @@ let started = false
 let gestured = false
 let wired = false
 let warming = false
+let mutedPrimed = false
+const playingListeners = new Set()
+
+function notifyPlaying() {
+  playingListeners.forEach((fn) => {
+    try {
+      fn()
+    } catch {
+      /* ignore */
+    }
+  })
+}
+
+export function onBackgroundMusicPlaying(fn) {
+  playingListeners.add(fn)
+  if (started) fn()
+  return () => playingListeners.delete(fn)
+}
+
+export function isBackgroundMusicPlaying() {
+  return started
+}
 
 function ensureAudio() {
   if (audio) return audio
@@ -39,10 +61,11 @@ function ensureAudio() {
   el.src = mobile ? BG_SRC_MOBILE : BG_SRC_DESKTOP
 
   el.addEventListener('playing', () => {
+    if (el.muted) return
     started = true
-    el.muted = false
     el.volume = VOLUME
     detachGestures()
+    notifyPlaying()
   })
 
   el.addEventListener('error', () => {
@@ -65,7 +88,6 @@ function ensureAudio() {
   return el
 }
 
-/** Prefetch into a blob URL so mobile starts from local buffer (Android + iOS). */
 function warmSource(el, url) {
   if (warming) return
   warming = true
@@ -76,16 +98,19 @@ function warmSource(el, url) {
       return res.blob()
     })
     .then((blob) => {
-      // Don't interrupt active / starting playback
-      if (started || !el.paused) return
+      if (started || (!el.paused && !el.muted)) return
       const objectUrl = URL.createObjectURL(blob)
-      const resume = gestured
+      const resume = gestured || mutedPrimed
+      const keepMuted = el.muted
       el.src = objectUrl
+      el.muted = keepMuted
       el.load()
-      if (resume) tryPlay(el)
+      if (resume) {
+        if (keepMuted) primeMuted(el)
+        else tryPlay(el)
+      }
     })
     .catch(() => {
-      /* Keep original src — network will stream it */
       if (!el.src) {
         el.src = url
         el.load()
@@ -97,47 +122,90 @@ function warmSource(el, url) {
 }
 
 function tryPlay(el) {
-  if (!el || started) return
+  if (!el || started) return Promise.resolve(false)
 
-  const run = () => {
-    const result = el.play()
-    if (result && typeof result.then === 'function') {
-      result.catch(() => {
-        /* Need gesture or more buffer — keep listeners */
+  el.muted = false
+  el.volume = VOLUME
+  const result = el.play()
+  if (result && typeof result.then === 'function') {
+    return result
+      .then(() => {
+        if (!el.paused && !el.muted) {
+          started = true
+          detachGestures()
+          notifyPlaying()
+          return true
+        }
+        return false
       })
-    }
+      .catch(() => false)
+  }
+  if (!el.paused) {
+    started = true
+    detachGestures()
+    notifyPlaying()
+    return Promise.resolve(true)
+  }
+  return Promise.resolve(false)
+}
+
+/** Mobile browsers allow muted autoplay — warms the audio pipeline for instant unmute. */
+function primeMuted(el) {
+  if (!el || started) return
+  mutedPrimed = true
+  el.muted = true
+  el.volume = 0
+  const result = el.play()
+  if (result && typeof result.catch === 'function') {
+    result.catch(() => {
+      mutedPrimed = false
+    })
+  }
+}
+
+/**
+ * Call from a real user gesture (open gate / tap). Unmutes if primed, else plays.
+ * Required on iOS/Android — browsers block unmuted autoplay without this.
+ */
+export function unlockBackgroundMusic() {
+  gestured = true
+  const el = ensureAudio()
+
+  if (mutedPrimed && !el.paused) {
+    el.muted = false
+    el.volume = VOLUME
+    started = true
+    detachGestures()
+    notifyPlaying()
+    return Promise.resolve(true)
   }
 
-  run()
-
-  // iOS: if still blocked, unlock with muted play in the same turn, then unmute
-  if (isIos() && el.paused) {
+  if (isIos()) {
     el.muted = true
-    const mutedPlay = el.play()
-    if (mutedPlay && typeof mutedPlay.then === 'function') {
-      mutedPlay
-        .then(() => {
-          el.muted = false
-          el.volume = VOLUME
-        })
-        .catch(() => {
-          el.muted = false
-        })
-    } else {
-      el.muted = false
-    }
+    return el
+      .play()
+      .then(() => {
+        el.muted = false
+        el.volume = VOLUME
+        started = true
+        detachGestures()
+        notifyPlaying()
+        return true
+      })
+      .catch(() => tryPlay(el))
   }
+
+  return tryPlay(el)
 }
 
 function onGesture() {
-  gestured = true
-  const el = ensureAudio()
-  tryPlay(el)
+  unlockBackgroundMusic()
 }
 
 function onReady() {
-  if (!gestured || started) return
-  tryPlay(audio)
+  if (started) return
+  if (gestured) tryPlay(audio)
+  else if (isMobileDevice() && !mutedPrimed) primeMuted(audio)
 }
 
 function detachGestures() {
@@ -155,14 +223,17 @@ function detachGestures() {
 
 /**
  * Wire once for the page lifetime. Safe to call from React effects repeatedly.
+ * Desktop: unmuted autoplay. Mobile: muted prime + open-gate unmute (browser policy).
  */
 export function initBackgroundMusic() {
   if (typeof window === 'undefined') return () => {}
 
   const el = ensureAudio()
+  const mobile = isMobileDevice()
 
   if (!wired) {
     wired = true
+    // Fallback unlock if user taps invite before/without the gate
     document.addEventListener('touchstart', onGesture, { passive: true, capture: true })
     document.addEventListener('touchend', onGesture, { passive: true, capture: true })
     document.addEventListener('pointerdown', onGesture, { passive: true, capture: true })
@@ -173,9 +244,12 @@ export function initBackgroundMusic() {
     el.addEventListener('loadeddata', onReady)
   }
 
-  // Desktop often allows autoplay; mobile will no-op until gesture
-  tryPlay(el)
+  if (mobile) {
+    // Muted autoplay is allowed — music is running silently until open gate unmutes
+    primeMuted(el)
+  } else {
+    tryPlay(el)
+  }
 
-  // Do NOT pause/detach on React unmount — StrictMode remount would kill iOS unlock
   return () => {}
 }
