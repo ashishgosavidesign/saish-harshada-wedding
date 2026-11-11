@@ -1,10 +1,7 @@
 import { useEffect } from 'react'
 import { initBackgroundMusic } from './bgMusicController'
 
-/**
- * Starts the shared music controller (desktop autoplay / mobile muted prime).
- * Mobile unmute happens via InviteOpenGate on first tap.
- */
+/** Starts background music — desktop autoplay; mobile on first tap (no extra UI). */
 function BackgroundMusic() {
   useEffect(() => initBackgroundMusic(), [])
   return null

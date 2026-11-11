@@ -10,8 +10,6 @@ export const invitationContent = {
       langGroup: 'Language',
       scroll: 'Scroll',
       stub: 'More follows…',
-      openInvite: 'Open invitation',
-      openInviteHint: 'Tap to enter',
     },
     message: {
       line1: 'Be our guest',
@@ -63,8 +61,6 @@ export const invitationContent = {
       langGroup: 'भाषा',
       scroll: 'खाली scroll करा',
       stub: 'पुढे…',
-      openInvite: 'निमंत्रण उघडा',
-      openInviteHint: 'प्रवेश करण्यासाठी टॅप करा',
     },
     message: {
       line1: 'सस्नेह निमंत्रण',

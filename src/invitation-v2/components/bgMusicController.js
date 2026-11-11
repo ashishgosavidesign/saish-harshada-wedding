@@ -2,7 +2,7 @@ const BG_SRC_DESKTOP = '/audio/diwali-bg.mp3'
 const BG_SRC_MOBILE = '/audio/diwali-bg-mobile.mp3'
 const VOLUME = 0.45
 
-export function isMobileDevice() {
+function isMobileDevice() {
   if (typeof window === 'undefined') return false
   if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) return true
   return window.matchMedia('(pointer: coarse)').matches && navigator.maxTouchPoints > 0
@@ -22,28 +22,6 @@ let started = false
 let gestured = false
 let wired = false
 let warming = false
-let mutedPrimed = false
-const playingListeners = new Set()
-
-function notifyPlaying() {
-  playingListeners.forEach((fn) => {
-    try {
-      fn()
-    } catch {
-      /* ignore */
-    }
-  })
-}
-
-export function onBackgroundMusicPlaying(fn) {
-  playingListeners.add(fn)
-  if (started) fn()
-  return () => playingListeners.delete(fn)
-}
-
-export function isBackgroundMusicPlaying() {
-  return started
-}
 
 function ensureAudio() {
   if (audio) return audio
@@ -63,9 +41,9 @@ function ensureAudio() {
   el.addEventListener('playing', () => {
     if (el.muted) return
     started = true
+    el.muted = false
     el.volume = VOLUME
     detachGestures()
-    notifyPlaying()
   })
 
   el.addEventListener('error', () => {
@@ -98,17 +76,12 @@ function warmSource(el, url) {
       return res.blob()
     })
     .then((blob) => {
-      if (started || (!el.paused && !el.muted)) return
+      if (started || !el.paused) return
       const objectUrl = URL.createObjectURL(blob)
-      const resume = gestured || mutedPrimed
-      const keepMuted = el.muted
+      const resume = gestured
       el.src = objectUrl
-      el.muted = keepMuted
       el.load()
-      if (resume) {
-        if (keepMuted) primeMuted(el)
-        else tryPlay(el)
-      }
+      if (resume) tryPlay(el)
     })
     .catch(() => {
       if (!el.src) {
@@ -122,90 +95,55 @@ function warmSource(el, url) {
 }
 
 function tryPlay(el) {
-  if (!el || started) return Promise.resolve(false)
+  if (!el || started) return
 
   el.muted = false
   el.volume = VOLUME
   const result = el.play()
   if (result && typeof result.then === 'function') {
-    return result
+    result
       .then(() => {
-        if (!el.paused && !el.muted) {
+        if (!el.paused) {
           started = true
           detachGestures()
-          notifyPlaying()
-          return true
         }
-        return false
       })
-      .catch(() => false)
-  }
-  if (!el.paused) {
+      .catch(() => {
+        /* Need gesture — keep listeners */
+      })
+  } else if (!el.paused) {
     started = true
     detachGestures()
-    notifyPlaying()
-    return Promise.resolve(true)
-  }
-  return Promise.resolve(false)
-}
-
-/** Mobile browsers allow muted autoplay — warms the audio pipeline for instant unmute. */
-function primeMuted(el) {
-  if (!el || started) return
-  mutedPrimed = true
-  el.muted = true
-  el.volume = 0
-  const result = el.play()
-  if (result && typeof result.catch === 'function') {
-    result.catch(() => {
-      mutedPrimed = false
-    })
-  }
-}
-
-/**
- * Call from a real user gesture (open gate / tap). Unmutes if primed, else plays.
- * Required on iOS/Android — browsers block unmuted autoplay without this.
- */
-export function unlockBackgroundMusic() {
-  gestured = true
-  const el = ensureAudio()
-
-  if (mutedPrimed && !el.paused) {
-    el.muted = false
-    el.volume = VOLUME
-    started = true
-    detachGestures()
-    notifyPlaying()
-    return Promise.resolve(true)
   }
 
-  if (isIos()) {
+  if (isIos() && el.paused) {
     el.muted = true
-    return el
-      .play()
-      .then(() => {
-        el.muted = false
-        el.volume = VOLUME
-        started = true
-        detachGestures()
-        notifyPlaying()
-        return true
-      })
-      .catch(() => tryPlay(el))
+    const mutedPlay = el.play()
+    if (mutedPlay && typeof mutedPlay.then === 'function') {
+      mutedPlay
+        .then(() => {
+          el.muted = false
+          el.volume = VOLUME
+          started = true
+          detachGestures()
+        })
+        .catch(() => {
+          el.muted = false
+        })
+    } else {
+      el.muted = false
+    }
   }
-
-  return tryPlay(el)
 }
 
 function onGesture() {
-  unlockBackgroundMusic()
+  gestured = true
+  tryPlay(ensureAudio())
 }
 
 function onReady() {
-  if (started) return
-  if (gestured) tryPlay(audio)
-  else if (isMobileDevice() && !mutedPrimed) primeMuted(audio)
+  if (!gestured || started) return
+  tryPlay(audio)
 }
 
 function detachGestures() {
@@ -222,18 +160,15 @@ function detachGestures() {
 }
 
 /**
- * Wire once for the page lifetime. Safe to call from React effects repeatedly.
- * Desktop: unmuted autoplay. Mobile: muted prime + open-gate unmute (browser policy).
+ * Desktop: autoplay. Mobile: starts on first tap anywhere on the invite (no extra UI).
  */
 export function initBackgroundMusic() {
   if (typeof window === 'undefined') return () => {}
 
   const el = ensureAudio()
-  const mobile = isMobileDevice()
 
   if (!wired) {
     wired = true
-    // Fallback unlock if user taps invite before/without the gate
     document.addEventListener('touchstart', onGesture, { passive: true, capture: true })
     document.addEventListener('touchend', onGesture, { passive: true, capture: true })
     document.addEventListener('pointerdown', onGesture, { passive: true, capture: true })
@@ -244,12 +179,7 @@ export function initBackgroundMusic() {
     el.addEventListener('loadeddata', onReady)
   }
 
-  if (mobile) {
-    // Muted autoplay is allowed — music is running silently until open gate unmutes
-    primeMuted(el)
-  } else {
-    tryPlay(el)
-  }
+  tryPlay(el)
 
   return () => {}
 }
